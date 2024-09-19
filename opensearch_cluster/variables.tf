@@ -41,7 +41,7 @@ variable "defined_tags" {
 
 variable "display_name" {
   description = "(Required) (Updatable) The name of the cluster. Avoid entering confidential information."
-  type        = strin
+  type        = string
 }
 
 variable "freeform_tags" {
@@ -58,7 +58,7 @@ variable "master_node_count" {
 variable "master_node_host_bare_metal_shape" {
   description = "(Optional) The bare metal shape for the cluster's master nodes."
   type        = string
-  defaul      = null
+  default     = null
 }
 
 variable "master_node_host_memory_gb" {

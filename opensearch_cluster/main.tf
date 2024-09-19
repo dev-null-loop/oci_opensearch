@@ -16,7 +16,7 @@ resource "oci_opensearch_opensearch_cluster" "this" {
   software_version                   = var.software_version
   subnet_compartment_id              = var.subnet_compartment_id
   subnet_id                          = var.subnet_id
-  vcn_compartment_id                 = var.vnc_compartment_id
+  vcn_compartment_id                 = var.vcn_compartment_id
   vcn_id                             = var.vcn_id
   data_node_host_bare_metal_shape    = var.data_node_host_bare_metal_shape
   defined_tags                       = var.defined_tags
