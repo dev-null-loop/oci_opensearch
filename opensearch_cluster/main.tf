@@ -26,4 +26,9 @@ resource "oci_opensearch_opensearch_cluster" "this" {
   security_master_user_password_hash = var.security_master_user_password_hash
   security_mode                      = var.security_mode
   system_tags                        = var.system_tags
+  timeouts {
+    create = "30m"
+    update = "5m"
+    delete = "20m"
+  }
 }

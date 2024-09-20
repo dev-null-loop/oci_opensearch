@@ -16,6 +16,10 @@ variable "data_node_host_bare_metal_shape" {
 variable "data_node_host_memory_gb" {
   description = "(Required) (Updatable) The amount of memory in GB, to configure per node for the cluster's data nodes."
   type        = number
+  validation {
+    condition     = !(var.data_node_host_memory_gb < 20)
+    error_message = "Error: Data Node Host Memory GB fell behind limit"
+  }
 }
 
 variable "data_node_host_ocpu_count" {
@@ -31,6 +35,10 @@ variable "data_node_host_type" {
 variable "data_node_storage_gb" {
   description = "(Required) (Updatable) The amount of storage in GB, to configure per node for the cluster's data nodes."
   type        = number
+  validation {
+    condition     = !(var.data_node_storage_gb < 50)
+    error_message = "Error: Data Node Storage GB fell behind limit"
+  }
 }
 
 variable "defined_tags" {
@@ -84,6 +92,10 @@ variable "opendashboard_node_count" {
 variable "opendashboard_node_host_memory_gb" {
   description = "(Required) (Updatable) The amount of memory in GB, to configure for the cluster's OpenSearch Dashboard nodes."
   type        = number
+  validation {
+    condition     = !(var.opendashboard_node_host_memory_gb < 8)
+    error_message = "Error: Opendashboard Node Host Memory GB fell behind limit"
+  }
 }
 
 variable "opendashboard_node_host_ocpu_count" {
