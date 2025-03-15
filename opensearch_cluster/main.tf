@@ -34,7 +34,7 @@ resource "oci_opensearch_opensearch_cluster" "this" {
   master_node_host_bare_metal_shape = var.master_node_host_bare_metal_shape
   dynamic "outbound_cluster_config" {
     for_each = var.outbound_cluster_config[*]
-    ierator  = occ
+    iterator = occ
     content {
       is_enabled = occ.value.is_enabled
       outbound_clusters {

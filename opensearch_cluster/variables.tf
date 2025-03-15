@@ -183,6 +183,6 @@ variable "outbound_cluster_config" {
 
 variable "reverse_connection_endpoint_customer_ips" {
   description = "(Optional) (Updatable) The customer IP addresses of the endpoint in customer VCN"
-  type        = string
-  default     = null
+  type        = list(string)
+  default     = []
 }
