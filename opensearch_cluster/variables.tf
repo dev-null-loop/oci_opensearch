@@ -151,3 +151,38 @@ variable "vcn_id" {
   description = "(Required) The OCID of the cluster's VCN."
   type        = string
 }
+
+variable "inbound_cluster_ids" {
+  description = "(Optional) List of inbound clusters that will be queried using cross cluster search"
+  type        = list(string)
+  default     = []
+}
+
+variable "maintenance_details" {
+  description = "(Optional) (Updatable) Details for creation of maintenance details"
+  type = object({
+    notification_email_ids = optional(list(string))
+  })
+  default = null
+}
+
+variable "outbound_cluster_config" {
+  description = "(Optional) (Updatable) This configuration is used for passing request details to connect outbound cluster(s) to the inbound cluster (coordinating cluster)"
+  type = object({
+    is_enabled = bool
+    outbound_clusters = object({
+      display_name        = string
+      is_skip_unavailable = optional(bool)
+      mode                = optional(string)
+      ping_schedule       = optional(string)
+      seed_cluster_id     = string
+    })
+  })
+  default = null
+}
+
+variable "reverse_connection_endpoint_customer_ips" {
+  description = "(Optional) (Updatable) The customer IP addresses of the endpoint in customer VCN"
+  type        = string
+  default     = null
+}
