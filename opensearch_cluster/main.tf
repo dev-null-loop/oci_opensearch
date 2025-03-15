@@ -46,7 +46,7 @@ resource "oci_opensearch_opensearch_cluster" "this" {
       }
     }
   }
-  reverse_connection_endpoint_customer_ips = var.opensearch_cluster_reverse_connection_endpoint_customer_ips
+  reverse_connection_endpoint_customer_ips = var.reverse_connection_endpoint_customer_ips
   security_master_user_name                = var.security_master_user_name
   security_master_user_password_hash       = var.security_master_user_password_hash
   security_mode                            = var.security_mode
