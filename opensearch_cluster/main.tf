@@ -18,11 +18,30 @@ resource "oci_opensearch_opensearch_cluster" "this" {
   subnet_id                          = var.subnet_id
   vcn_compartment_id                 = var.vcn_compartment_id
   vcn_id                             = var.vcn_id
-  data_node_host_bare_metal_shape    = var.data_node_host_bare_metal_shape
-  defined_tags                       = var.defined_tags
-  freeform_tags                      = var.freeform_tags
-
-  inbound_cluster_ids = var.inbound_cluster_ids
+  dynamic "certificate_config" {
+    for_each = var.certificate_config[*]
+    iterator = cc
+    content {
+      cluster_certificate_mode             = cc.value.cluster_certificate_mode
+      dashboard_certificate_mode           = cc.value.dashboard_certificate_mode
+      open_search_api_certificate_id       = cc.value.open_search_api_certificate_name
+      open_search_dashboard_certificate_id = cc.value.open_search_dashboard_certificate_name
+    }
+  }
+  data_node_host_bare_metal_shape = var.data_node_host_bare_metal_shape
+  data_node_host_shape            = var.data_node_host_shape
+  defined_tags                    = var.defined_tags
+  freeform_tags                   = var.freeform_tags
+  inbound_cluster_ids             = var.inbound_cluster_ids
+  dynamic "load_balancer_config" {
+    for_each = var.load_balancer_config[*]
+    iterator = lbc
+    content {
+      load_balancer_service_type          = lbc.value.load_balancer_service_type
+      load_balancer_max_bandwidth_in_mbps = lbc.value.load_balancer_max_bandwidth_in_mbps
+      load_balancer_min_bandwidth_in_mbps = lbc.value.load_balancer_min_bandwidth_in_mbps
+    }
+  }
   dynamic "maintenance_details" {
     for_each = var.maintenance_details[*]
     iterator = md
@@ -30,8 +49,10 @@ resource "oci_opensearch_opensearch_cluster" "this" {
       notification_email_ids = md.value.notification_email_ids
     }
   }
-
   master_node_host_bare_metal_shape = var.master_node_host_bare_metal_shape
+  master_node_host_shape            = var.master_node_host_shape
+  nsg_id                            = var.nsg_id
+  opendashboard_node_host_shape     = var.opendashboard_node_host_shape
   dynamic "outbound_cluster_config" {
     for_each = var.outbound_cluster_config[*]
     iterator = occ
@@ -47,6 +68,13 @@ resource "oci_opensearch_opensearch_cluster" "this" {
     }
   }
   reverse_connection_endpoint_customer_ips = var.reverse_connection_endpoint_customer_ips
+  search_node_count                        = var.search_node_count
+  search_node_host_memory_gb               = var.search_node_host_memory_gb
+  search_node_host_ocpu_count              = var.search_node_host_ocpu_count
+  search_node_host_shape                   = var.search_node_host_shape
+  search_node_host_type                    = var.search_node_host_type
+  search_node_storage_gb                   = var.search_node_storage_gb
+  security_attributes                      = var.security_attributes
   security_master_user_name                = var.security_master_user_name
   security_master_user_password_hash       = var.security_master_user_password_hash
   security_mode                            = var.security_mode
