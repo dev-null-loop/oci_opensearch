@@ -1,10 +1,5 @@
 resource "oci_opensearch_opensearch_cluster" "this" {
   compartment_id                     = var.compartment_id
-  coordinator_node_count             = var.coordinator_node_count
-  coordinator_node_host_memory_gb    = var.coordinator_node_host_memory_gb
-  coordinator_node_host_ocpu_count   = var.coordinator_node_host_ocpu_count
-  coordinator_node_host_shape        = var.coordinator_node_host_shape
-  coordinator_node_host_type         = var.coordinator_node_host_type
   data_node_count                    = var.data_node_count
   data_node_host_memory_gb           = var.data_node_host_memory_gb
   data_node_host_ocpu_count          = var.data_node_host_ocpu_count
@@ -33,11 +28,16 @@ resource "oci_opensearch_opensearch_cluster" "this" {
       open_search_dashboard_certificate_id = cc.value.open_search_dashboard_certificate_id
     }
   }
-  data_node_host_bare_metal_shape = var.data_node_host_bare_metal_shape
-  data_node_host_shape            = var.data_node_host_shape
-  defined_tags                    = var.defined_tags
-  freeform_tags                   = var.freeform_tags
-  inbound_cluster_ids             = var.inbound_cluster_ids
+  coordinator_node_count           = var.coordinator_node_count
+  coordinator_node_host_memory_gb  = var.coordinator_node_host_memory_gb
+  coordinator_node_host_ocpu_count = var.coordinator_node_host_ocpu_count
+  coordinator_node_host_shape      = var.coordinator_node_host_shape
+  coordinator_node_host_type       = var.coordinator_node_host_type
+  data_node_host_bare_metal_shape  = var.data_node_host_bare_metal_shape
+  data_node_host_shape             = var.data_node_host_shape
+  defined_tags                     = var.defined_tags
+  freeform_tags                    = var.freeform_tags
+  inbound_cluster_ids              = var.inbound_cluster_ids
   dynamic "load_balancer_config" {
     for_each = var.load_balancer_config[*]
     iterator = lbc
