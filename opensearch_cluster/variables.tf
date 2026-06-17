@@ -26,6 +26,36 @@ variable "configure_outbound_cluster_trigger" {
   default     = null
 }
 
+variable "coordinator_node_count" {
+  description = "(Optional) (Updatable) The number of coordinator nodes configured for the cluster."
+  type        = number
+  default     = null
+}
+
+variable "coordinator_node_host_memory_gb" {
+  description = "(Optional) (Updatable) The amount of memory in GB, for the cluster's coordinator nodes."
+  type        = number
+  default     = null
+}
+
+variable "coordinator_node_host_ocpu_count" {
+  description = "(Optional) (Updatable) The number of OCPUs configured for the cluster's coordinator nodes."
+  type        = number
+  default     = null
+}
+
+variable "coordinator_node_host_shape" {
+  description = "(Optional) (Updatable) The node shape for the cluster's coordinator nodes."
+  type        = string
+  default     = null
+}
+
+variable "coordinator_node_host_type" {
+  description = "(Optional) The instance type for the cluster's coordinator nodes."
+  type        = string
+  default     = null
+}
+
 variable "data_node_count" {
   description = "(Required) (Updatable) The number of data nodes to configure for the cluster."
   type        = number

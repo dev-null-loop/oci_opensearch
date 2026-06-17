@@ -1,5 +1,10 @@
 resource "oci_opensearch_opensearch_cluster" "this" {
   compartment_id                     = var.compartment_id
+  coordinator_node_count             = var.coordinator_node_count
+  coordinator_node_host_memory_gb    = var.coordinator_node_host_memory_gb
+  coordinator_node_host_ocpu_count   = var.coordinator_node_host_ocpu_count
+  coordinator_node_host_shape        = var.coordinator_node_host_shape
+  coordinator_node_host_type         = var.coordinator_node_host_type
   data_node_count                    = var.data_node_count
   data_node_host_memory_gb           = var.data_node_host_memory_gb
   data_node_host_ocpu_count          = var.data_node_host_ocpu_count
@@ -106,7 +111,7 @@ resource "oci_opensearch_opensearch_cluster" "this" {
   upgrade_major_version_trigger      = var.upgrade_major_version_trigger
   timeouts {
     create = "45m"
-    update = "45m"
+    update = "90m"
     delete = "45m"
   }
 }

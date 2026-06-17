@@ -3,6 +3,16 @@ output "id" {
   value       = oci_opensearch_opensearch_cluster.this.id
 }
 
+output "coordinator_node_count" {
+  description = "The number of coordinator nodes configured for the cluster."
+  value       = oci_opensearch_opensearch_cluster.this.coordinator_node_count
+}
+
+output "coordinator_node_host_shape" {
+  description = "The node shape for the cluster's coordinator nodes."
+  value       = oci_opensearch_opensearch_cluster.this.coordinator_node_host_shape
+}
+
 output "state" {
   description = "The current state of the cluster."
   value       = oci_opensearch_opensearch_cluster.this.state
