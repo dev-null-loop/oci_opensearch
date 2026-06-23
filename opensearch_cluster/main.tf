@@ -111,7 +111,7 @@ resource "oci_opensearch_opensearch_cluster" "this" {
   upgrade_major_version_trigger      = var.upgrade_major_version_trigger
   timeouts {
     create = "45m"
-    update = "90m"
+    update = "45m"
     delete = "45m"
   }
 }
