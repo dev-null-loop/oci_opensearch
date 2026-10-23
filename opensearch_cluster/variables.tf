@@ -267,6 +267,18 @@ variable "reverse_connection_endpoint_customer_ips" {
   default     = []
 }
 
+variable "remote_reindex_trust_config" {
+  description = "(Optional) Remote endpoints and certificates trusted for remote reindex operations."
+  type = object({
+    remote_sources = list(object({
+      certificate_id         = string
+      endpoint               = string
+      endpoint_resolution_ip = optional(string)
+    }))
+  })
+  default = null
+}
+
 variable "search_node_count" {
   description = "(Optional) (Updatable) The number of search nodes configured for the cluster."
   type        = number

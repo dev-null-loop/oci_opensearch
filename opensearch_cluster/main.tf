@@ -83,15 +83,30 @@ resource "oci_opensearch_opensearch_cluster" "this" {
     }
   }
   reverse_connection_endpoint_customer_ips = var.reverse_connection_endpoint_customer_ips
-  search_node_count                        = var.search_node_count
-  search_node_host_memory_gb               = var.search_node_host_memory_gb
-  search_node_host_ocpu_count              = var.search_node_host_ocpu_count
-  search_node_host_shape                   = var.search_node_host_shape
-  search_node_host_type                    = var.search_node_host_type
-  search_node_storage_gb                   = var.search_node_storage_gb
-  security_attributes                      = var.security_attributes
-  security_master_user_name                = var.security_master_user_name
-  security_master_user_password_hash       = var.security_master_user_password_hash
+  dynamic "remote_reindex_trust_config" {
+    for_each = var.remote_reindex_trust_config[*]
+    iterator = rrtc
+    content {
+      dynamic "remote_sources" {
+        for_each = rrtc.value.remote_sources
+        iterator = rs
+        content {
+          certificate_id         = rs.value.certificate_id
+          endpoint               = rs.value.endpoint
+          endpoint_resolution_ip = rs.value.endpoint_resolution_ip
+        }
+      }
+    }
+  }
+  search_node_count                  = var.search_node_count
+  search_node_host_memory_gb         = var.search_node_host_memory_gb
+  search_node_host_ocpu_count        = var.search_node_host_ocpu_count
+  search_node_host_shape             = var.search_node_host_shape
+  search_node_host_type              = var.search_node_host_type
+  search_node_storage_gb             = var.search_node_storage_gb
+  security_attributes                = var.security_attributes
+  security_master_user_name          = var.security_master_user_name
+  security_master_user_password_hash = var.security_master_user_password_hash
   dynamic "security_saml_config" {
     for_each = var.security_saml_config[*]
     iterator = ssc
