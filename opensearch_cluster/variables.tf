@@ -333,6 +333,15 @@ variable "security_master_user_password_hash" {
   default     = null
 }
 
+variable "security_master_user_auth_details" {
+  description = "(Optional) Master-user authentication sourced from an OCI Vault secret. Cannot be used with the legacy username and password-hash inputs."
+  type = object({
+    username        = string
+    vault_secret_id = string
+  })
+  default = null
+}
+
 variable "security_mode" {
   description = "(Optional) (Updatable) The security mode of the cluster."
   type        = string

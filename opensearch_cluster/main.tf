@@ -107,6 +107,20 @@ resource "oci_opensearch_opensearch_cluster" "this" {
   security_attributes                = var.security_attributes
   security_master_user_name          = var.security_master_user_name
   security_master_user_password_hash = var.security_master_user_password_hash
+  dynamic "security_master_user_auth_details" {
+    for_each = var.security_master_user_auth_details[*]
+    iterator = smuad
+    content {
+      user_details {
+        username = smuad.value.username
+
+        password_details {
+          source_type     = "OCI_VAULT_SECRET"
+          vault_secret_id = smuad.value.vault_secret_id
+        }
+      }
+    }
+  }
   dynamic "security_saml_config" {
     for_each = var.security_saml_config[*]
     iterator = ssc
@@ -128,5 +142,15 @@ resource "oci_opensearch_opensearch_cluster" "this" {
     create = "45m"
     update = "45m"
     delete = "45m"
+  }
+
+  lifecycle {
+    precondition {
+      condition = (
+        var.security_master_user_auth_details == null ||
+        (var.security_master_user_name == null && var.security_master_user_password_hash == null)
+      )
+      error_message = "Use either security_master_user_auth_details or the legacy security_master_user_name and security_master_user_password_hash inputs, not both."
+    }
   }
 }
